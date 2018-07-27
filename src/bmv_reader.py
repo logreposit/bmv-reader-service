@@ -1,5 +1,9 @@
+#!/usr/bin/env python3
+
 import json
 import serial
+
+from bmv_reading import BMVReading
 
 CHECKSUM_VALUE_NAME = 'Checksum'
 
@@ -13,11 +17,15 @@ BMV_602_VALUE_NAMES = ['V', 'VS0', 'I', 'CE', 'SOC', 'TTG', 'Alarm', 'Relay', 'A
 NON_INTEGER_VALUE_NAMES = ['Alarm', 'Relay', 'BMV', 'AR', 'FW', CHECKSUM_VALUE_NAME]
 
 
-class ChecksumError(Exception):
+class BMVReaderError(Exception):
     pass
 
 
-class NoDataError(Exception):
+class ChecksumError(BMVReaderError):
+    pass
+
+
+class NoDataError(BMVReaderError):
     pass
 
 
@@ -112,6 +120,29 @@ class BMVReader:
     def read(self):
         values = self._read_values()
         return self._convert_to_dictionary(values=values)
+
+    def get_reading(self):
+        values = self.read()
+
+        battery_voltage = values.get('V')
+        starter_battery_voltage = values.get('VS0')
+        current = values.get('I')
+        consumed_energy = values.get('CE')
+        state_of_charge = values.get('SOC')
+        time_to_go = values.get('TTG')
+        alarm = values.get('Alarm')
+        relay = values.get('Relay')
+
+        bmv_reading = BMVReading(battery_voltage=battery_voltage,
+                                 starter_battery_voltage=starter_battery_voltage,
+                                 current=current,
+                                 consumed_energy=consumed_energy,
+                                 state_of_charge=state_of_charge,
+                                 time_to_go=time_to_go,
+                                 alarm=alarm,
+                                 relay=relay)
+
+        return bmv_reading
 
 
 def main():
