@@ -124,6 +124,8 @@ def main():
     _check_required_environment_variables()
 
     bmv_model = os.getenv(BMV_MODEL_ENV_VAR_NAME)
+    _validate_bmv_model(bmv_model=bmv_model)
+
     device_token = os.getenv(DEVICE_TOKEN_ENV_VAR_NAME)
     serial_device = os.getenv(SERIAL_DEVICE_ENV_VAR_NAME, SERIAL_DEVICE_DEFAULT_VALUE)
     api_base_url = os.getenv(API_BASE_URL_ENV_VAR_NAME, API_BASE_URL_DEFAULT_VALUE)
