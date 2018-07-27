@@ -101,8 +101,14 @@ def _publish_values(bmv_reading, api_base_url, device_token):
         'x-device-token': device_token
     }
     request_data = _build_request_data(bmv_reading=bmv_reading)
-    print('Will publish values: {}'.format(json.dumps(request_data)))
-    #r = requests.post(url, json=request_data, headers=headers)
+
+    print('Publishing values: {}'.format(json.dumps(request_data)))
+    response = requests.post(url, json=request_data, headers=headers)
+
+    if response.status_code != 202:
+        print('ERROR: Got HTTP status code \'{}\': {}'.format(response.status_code, response.raw))
+    else:
+        print('Successfully published data.')
 
 
 def _read_and_publish_values(serial_device, bmv_model, api_base_url, device_token):
