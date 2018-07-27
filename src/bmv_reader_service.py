@@ -20,7 +20,7 @@ FETCH_INTERVAL_ENV_VAR_NAME = 'FETCH_INTERVAL'
 
 SERIAL_DEVICE_DEFAULT_VALUE = '/dev/ttyUSB0'
 API_BASE_URL_DEFAULT_VALUE = 'https://api.logreposit.com/v1/'
-FETCH_INTERVAL_DEFAULT_VALUE = 30
+FETCH_INTERVAL_DEFAULT_VALUE = '30'
 
 
 def _check_required_environment_variables():
@@ -126,7 +126,7 @@ def main():
     device_token = os.getenv(DEVICE_TOKEN_ENV_VAR_NAME)
     serial_device = os.getenv(SERIAL_DEVICE_ENV_VAR_NAME, SERIAL_DEVICE_DEFAULT_VALUE)
     api_base_url = os.getenv(API_BASE_URL_ENV_VAR_NAME, API_BASE_URL_DEFAULT_VALUE)
-    fetch_interval = os.getenv(FETCH_INTERVAL_ENV_VAR_NAME, FETCH_INTERVAL_DEFAULT_VALUE)
+    fetch_interval = int(os.getenv(FETCH_INTERVAL_ENV_VAR_NAME, FETCH_INTERVAL_DEFAULT_VALUE))
 
     while True:
         _sleep_interval(interval=fetch_interval)
