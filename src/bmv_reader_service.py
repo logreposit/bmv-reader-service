@@ -123,7 +123,7 @@ def _read_and_publish_values(serial_device, bmv_model, api_base_url, device_toke
 def main():
     _check_required_environment_variables()
 
-    bmv_model = os.getenv(BMV_MODEL_ENV_VAR_NAME)
+    bmv_model = int(os.getenv(BMV_MODEL_ENV_VAR_NAME))
     _validate_bmv_model(bmv_model=bmv_model)
 
     device_token = os.getenv(DEVICE_TOKEN_ENV_VAR_NAME)
