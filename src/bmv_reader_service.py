@@ -20,7 +20,7 @@ FETCH_INTERVAL_ENV_VAR_NAME = 'FETCH_INTERVAL'
 
 SERIAL_DEVICE_DEFAULT_VALUE = '/dev/ttyUSB0'
 API_BASE_URL_DEFAULT_VALUE = 'https://api.logreposit.com/v1/'
-FETCH_INTERVAL_DEFAULT_VALUE = 5
+FETCH_INTERVAL_DEFAULT_VALUE = 30
 
 
 def _check_required_environment_variables():
