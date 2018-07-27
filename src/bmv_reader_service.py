@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import calendar
 import datetime
 import json
 import os
@@ -22,10 +21,6 @@ FETCH_INTERVAL_ENV_VAR_NAME = 'FETCH_INTERVAL'
 SERIAL_DEVICE_DEFAULT_VALUE = '/dev/ttyUSB0'
 API_BASE_URL_DEFAULT_VALUE = 'https://api.logreposit.com/v1/'
 FETCH_INTERVAL_DEFAULT_VALUE = 5
-
-
-def _get_utc_timestamp():
-    return calendar.timegm(datetime.datetime.utcnow().utctimetuple())
 
 
 def _check_required_environment_variables():
@@ -69,8 +64,10 @@ def _prepare_data_for_publishing(bmv_reading: BMVReading):
     alarm = _convert_on_off_boolean(state=bmv_reading.alarm)
     relay = _convert_on_off_boolean(state=bmv_reading.relay)
 
+    date = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc).isoformat()
+
     data = {
-        'date': _get_utc_timestamp(),
+        'date': date,
         'stateOfCharge': state_of_charge,
         'alarm': alarm,
         'relay': relay,
