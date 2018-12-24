@@ -110,7 +110,7 @@ class BMVReader:
             index = self.value_names.index(value_name)
             value = values[index].decode('utf-8')
 
-            if value_name == '---':
+            if value == '---':
                 value = None
             elif value_name not in NON_INTEGER_VALUE_NAMES:
                 value = int(value)
