@@ -97,7 +97,7 @@ class BMVReader:
 
     @staticmethod
     def _validate_checksum(checksum):
-        if (checksum % 256) is not 0:
+        if (checksum % 256) != 0:
             raise ChecksumError()
 
     def _convert_to_dictionary(self, values):
